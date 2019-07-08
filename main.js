@@ -9,6 +9,9 @@ window.onload = function() {
   var resizedCanvas = document.getElementById("resizedCanvas");
   var clearBtn = document.getElementById("clearBtn");
 
+  tempCanvas.style.display = "none";
+  resizedCanvas.style.display = "none";
+
   mainCanvas.height = canvasHeight;
   mainCanvas.width = canvasWidth;
 
@@ -25,14 +28,14 @@ window.onload = function() {
   var drawStatus = false;
 
   function drawStart(e) {
-    var x = e.clientX;
-    var y = e.clientY;
+    var x = e.clientX - mainCanvas.offsetLeft;
+    var y = e.clientY - mainCanvas.offsetTop;
 
     drawStatus = true;
 
     ctx1.beginPath();
     ctx1.strokeStyle = "#fff";
-    ctx1.lineWidth = 6;
+    ctx1.lineWidth = 5;
     ctx1.lineJoin = "round";
     ctx1.lineCap = "round";
     ctx1.moveTo(x, y);
@@ -40,8 +43,8 @@ window.onload = function() {
 
   function drawContinue(e) {
     if (drawStatus) {
-      var x = e.clientX;
-      var y = e.clientY;
+      var x = e.clientX - mainCanvas.offsetLeft;
+      var y = e.clientY - mainCanvas.offsetTop;
 
       ctx1.lineTo(x, y);
       ctx1.stroke();
@@ -56,10 +59,39 @@ window.onload = function() {
     }
   }
 
+  function drawStartTouch(e) {
+    var to = e.changedTouches[0];
+    var x = to.clientX;
+    var y = to.clientY;
+
+    drawStatus = true;
+
+    ctx1.beginPath();
+    ctx1.strokeStyle = "#fff";
+    ctx1.lineWidth = 5;
+    ctx1.lineJoin = "round";
+    ctx1.lineCap = "round";
+    ctx1.moveTo(x, y);
+  }
+
+  function drawContinueTouch(e) {
+    if (drawStatus) {
+      var to = e.changedTouches[0];
+      var x = to.clientX;
+      var y = to.clientY;
+
+      ctx1.lineTo(x, y);
+      ctx1.stroke();
+    }
+  }
+
   mainCanvas.addEventListener("mousedown", drawStart);
   mainCanvas.addEventListener("mousemove", drawContinue);
   mainCanvas.addEventListener("mouseup", drawStop);
   mainCanvas.addEventListener("mouseout", drawStop);
+  mainCanvas.addEventListener("touchstart", drawStartTouch);
+  mainCanvas.addEventListener("touchmove", drawContinueTouch);
+  mainCanvas.addEventListener("touchend", drawStop);
 
   clearBtn.addEventListener("click", function() {
     ctx1.fillRect(0, 0, canvasWidth, canvasHeight);
@@ -127,13 +159,23 @@ window.onload = function() {
     imgObject.onload = function() {
       ctxTemp.save();
       var padding = 5;
+      var paddingLeft = 0;
+      var paddingTop = 0;
       ctxTemp.fillRect(0, 0, canvasWidth, canvasHeight);
-      ctxTemp.scale((28 - padding * 2) / width, (28 - padding * 2) / height);
+      if (width > height) {
+        ctxTemp.scale((28 - padding * 2) / width, (28 - padding * 2) / width);
+        paddingTop = (28 - padding * 2) * (1 - height / width);
+      } else {
+        ctxTemp.scale((28 - padding * 2) / height, (28 - padding * 2) / height);
+        paddingLeft = (28 - padding * 2) * (1 - width / height);
+      }
+      // ctxTemp.scale((28 - padding * 2) / width, (28 - padding * 2) / height);
       ctxTemp.drawImage(imgObject, 0, 0);
+      ctx2.fillRect(0, 0, 28, 28);
       ctx2.putImageData(
         ctxTemp.getImageData(0, 0, 28 - padding * 2, 28 - padding * 2),
-        padding,
-        padding
+        padding + paddingLeft / 2,
+        padding + paddingTop / 2
       );
 
       showData(ctx2.getImageData(0, 0, 28, 28).data);
@@ -158,7 +200,7 @@ window.onload = function() {
         pMaxIndex = i;
       }
     }
-    console.log(pMaxIndex);
+    document.getElementById("data").innerHTML = pMaxIndex;
   }
 
   function predict(w, b, x) {
