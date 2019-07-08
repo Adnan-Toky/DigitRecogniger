@@ -61,8 +61,8 @@ window.onload = function() {
 
   function drawStartTouch(e) {
     var to = e.changedTouches[0];
-    var x = to.clientX;
-    var y = to.clientY;
+    var x = to.clientX - mainCanvas.offsetLeft;
+    var y = to.clientY - mainCanvas.offsetTop;
 
     drawStatus = true;
 
@@ -77,8 +77,8 @@ window.onload = function() {
   function drawContinueTouch(e) {
     if (drawStatus) {
       var to = e.changedTouches[0];
-      var x = to.clientX;
-      var y = to.clientY;
+      var x = to.clientX - mainCanvas.offsetLeft;
+      var y = to.clientY - mainCanvas.offsetTop;
 
       ctx1.lineTo(x, y);
       ctx1.stroke();
