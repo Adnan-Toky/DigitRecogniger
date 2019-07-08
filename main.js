@@ -28,6 +28,7 @@ window.onload = function() {
   var drawStatus = false;
 
   function drawStart(e) {
+    e.preventDefault();
     var x = e.clientX - mainCanvas.offsetLeft;
     var y = e.clientY - mainCanvas.offsetTop;
 
@@ -42,6 +43,7 @@ window.onload = function() {
   }
 
   function drawContinue(e) {
+    e.preventDefault();
     if (drawStatus) {
       var x = e.clientX - mainCanvas.offsetLeft;
       var y = e.clientY - mainCanvas.offsetTop;
@@ -60,6 +62,7 @@ window.onload = function() {
   }
 
   function drawStartTouch(e) {
+    e.preventDefault();
     var to = e.changedTouches[0];
     var x = to.clientX - mainCanvas.offsetLeft;
     var y = to.clientY - mainCanvas.offsetTop;
@@ -75,6 +78,7 @@ window.onload = function() {
   }
 
   function drawContinueTouch(e) {
+    e.preventDefault();
     if (drawStatus) {
       var to = e.changedTouches[0];
       var x = to.clientX - mainCanvas.offsetLeft;
