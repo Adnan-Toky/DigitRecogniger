@@ -1,6 +1,8 @@
 window.onload = function() {
   "use strict";
 
+  document.getElementById("loading").style.display = "none";
+
   var canvasHeight = 200;
   var canvasWidth = 200;
 
@@ -139,7 +141,8 @@ window.onload = function() {
       boundary.maxX - boundary.minX + 6,
       boundary.maxY - boundary.minY + 6
     );
-    ctx1.strokeStyle = "#0a0";
+    ctx1.strokeStyle = "#f00";
+    ctx1.lineWidth = 3;
     ctx1.stroke();
     ctx1.closePath();
 
