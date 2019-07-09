@@ -5,66 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>Digit Recognizer</title>
-
-    <style>
-      body {
-        margin: 0;
-        width: 100%;
-        text-align: center;
-        font-family: arial;
-      }
-
-      canvas {
-        display: block;
-        margin: 20px auto;
-        cursor: crosshair;
-      }
-
-      #clearBtn {
-        display: inline-block;
-        border: none;
-        outline: none;
-        background: #00ab65;
-        color: #fff;
-        padding: 3px 20px;
-        border-radius: 3px;
-        box-shadow: 2px 2px 2px 2px #000;
-        font-size: 18px;
-      }
-
-      #clearBtn:hover {
-        box-shadow: none;
-      }
-
-      #loading {
-        background: #000;
-        height: 80%;
-        width: 100%;
-        position: absolute;
-        top: 0;
-        text-align: center;
-        color: #ffffff;
-        padding-top: 20vh;
-      }
-
-      #prediction {
-        font-family: arial;
-        font-size: 20px;
-        font-weight: 600;
-      }
-
-      #data {
-        color: mediumblue;
-        font-weight: 800;
-        font-size: 35px;
-      }
-
-      #header {
-        padding-top: 20px;
-        color: #35a;
-        font-weight: 700;
-      }
-    </style>
+    <link href="style.css" rel="stylesheet" type="text/css" />
   </head>
   <body>
     <div id="loading">
@@ -76,9 +17,8 @@
     <canvas id="tempCanvas"></canvas>
     <button id="clearBtn">Clear</button><br />
     <canvas id="resizedCanvas"></canvas>
-    <script src="main.js"></script>
     <script src="weights.js"></script>
     <script src="bias.js"></script>
-    <p id="prediction">Prediction: <br /><span id="data">0</span></p>
+    <p id="prediction">Prediction: <br /><span id="data">0</span></span></p>
   </body>
 </html>
