@@ -165,7 +165,7 @@ window.onload = function() {
     var imgObject = new Image();
     imgObject.onload = function() {
       ctxTemp.save();
-      var padding = 5;
+      var padding = 4;
       var paddingLeft = 0;
       var paddingTop = 0;
       ctxTemp.fillRect(0, 0, canvasWidth, canvasHeight);
